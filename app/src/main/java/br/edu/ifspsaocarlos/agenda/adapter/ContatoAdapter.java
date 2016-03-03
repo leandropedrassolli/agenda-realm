@@ -21,8 +21,6 @@ import io.realm.RealmResults;
 
 public class ContatoAdapter extends RealmBaseAdapter<Contato> implements ListAdapter {
 
-    private LayoutInflater inflater;
-
     // Construtor de acordo com herança.
     public ContatoAdapter(Context context, int resId,
                           RealmResults<Contato> realmResults,
@@ -43,7 +41,7 @@ public class ContatoAdapter extends RealmBaseAdapter<Contato> implements ListAda
             holder = (ViewHolder) convertView.getTag();
         }
 
-        // faz consulta no banco.
+        // busca objeto no banco Realm.
         Contato c = realmResults.get(position);
         holder.nome.setText(c.getNome());
         holder.telefone.setText(c.getFones().first().getNumero());

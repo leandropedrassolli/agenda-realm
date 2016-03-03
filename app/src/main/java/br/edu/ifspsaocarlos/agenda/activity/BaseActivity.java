@@ -43,11 +43,14 @@ public class BaseActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View arg1, int arg2,
-                                    long arg3) {
-                Contato contact = (Contato) adapterView.getAdapter().getItem(arg2);
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Contato c = (Contato) parent.getAdapter().getItem(position);
                 Intent i = new Intent(getApplicationContext(), DetalheActivity.class);
-                i.putExtra("contact", contact);
+                // O Realm não é capaz de receber objetos serializados
+                // passados entre intents ou threads.
+                // Por isso, passamos uma referência do objeto para consulta.
+                i.putExtra("contato", c.getNome());
                 startActivityForResult(i, 0);
             }
 

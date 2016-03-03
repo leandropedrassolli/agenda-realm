@@ -31,9 +31,12 @@ public class DetalheActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (getIntent().hasExtra("contact")) {
+        if (getIntent().hasExtra("contato")) {
 
-            c = (Contato) getIntent().getSerializableExtra("contact");
+            // Recebemos o parâmetro de outra intent e fazemos a consulta.
+            String nome = getIntent().getStringExtra("contato");
+            c = realm.where(Contato.class).equalTo("nome",nome).findFirst();
+
             EditText nameText = (EditText)findViewById(R.id.editText1);
             nameText.setText(c.getNome());
 
@@ -56,7 +59,7 @@ public class DetalheActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_detalhe, menu);
-        if (!getIntent().hasExtra("contact")) {
+        if (!getIntent().hasExtra("contato")) {
             MenuItem item = menu.findItem(R.id.delContato);
             item.setVisible(false);
         }
